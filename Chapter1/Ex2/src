@@ -1,1 +1,19 @@
+package BaiTap;
+
+public class Bai2 {
+
+    public static <E> void printArray(E[] arr) {
+        for (E e : arr) {
+            System.out.println(e);
+        }
+    }
+
+    public static void main(String[] args) {
+        Integer[] a = {1, 2, 3};
+        String[] b = {"Java", "HTML"};
+
+        printArray(a);
+        printArray(b);
+    }
+}
 
