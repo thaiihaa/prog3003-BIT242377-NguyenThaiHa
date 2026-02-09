@@ -1,1 +1,14 @@
+package BaiTap;
 
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
+public class Bai5 {
+    public static void main(String[] args) {
+        Supplier<Double> randomSupplier = () -> Math.random() * 100;
+        Consumer<Double> luckyNumberConsumer = num -> System.out.printf("Số may mắn: [%.2f]\n", num);
+
+        double number = randomSupplier.get();
+        luckyNumberConsumer.accept(number);
+    }
+}
