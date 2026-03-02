@@ -1,1 +1,29 @@
+import java.sql.*;
 
+public class Bai2_JDBC_Delete {
+    public static void deleteUser(int idXoa) {
+        String url = "jdbc:mysql://localhost:3306/ten_database";
+        String user = "root";
+        String password = "your_password";
+        String sql = "DELETE FROM users WHERE id = ?";
+
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setInt(1, idXoa);
+            int rowsAffected = pstmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Xóa thành công user có ID: " + idXoa);
+            } else {
+                System.out.println("Không tìm thấy user để xóa");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        deleteUser(5); // Thử xóa user có id là 5
+    }
+}
