@@ -1,1 +1,44 @@
+import javax.persistence.*;
 
+@Entity
+@Table(name = "products")
+public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "price")
+    private double price;
+
+    // Constructors
+    public Product() {}
+    public Product(String name, double price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    // Getters & Setters (Cần thiết cho Hibernate)
+    public int getId() { return id; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    public double getPrice() { return price; }
+    public void setPrice(double price) { this.price = price; }
+}
+// Giả sử bạn đã có SessionFactory được cấu hình
+Session session = sessionFactory.openSession();
+Transaction tx = session.beginTransaction();
+
+try {
+    Product laptop = new Product("Laptop", 1500);
+    session.save(laptop); // Lưu xuống DB
+    tx.commit();
+    System.out.println("Lưu sản phẩm thành công!");
+} catch (Exception e) {
+    if (tx != null) tx.rollback();
+    e.printStackTrace();
+} finally {
+    session.close();
+}
