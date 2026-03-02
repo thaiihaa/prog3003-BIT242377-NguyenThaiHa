@@ -1,1 +1,18 @@
+import org.hibernate.Session;
+import org.hibernate.query.Query;
+import java.util.List;
 
+public class Bai4_HQL_Query {
+    public static void filterProducts(Session session) {
+        // HQL sử dụng tên Class (Product) thay vì tên bảng (products)
+        String hql = "FROM Product p WHERE p.price > 1000";
+        
+        Query<Product> query = session.createQuery(hql, Product.class);
+        List<Product> list = query.getResultList();
+
+        System.out.println("Sản phẩm có giá > 1000:");
+        for (Product p : list) {
+            System.out.println("Tên: " + p.getName() + " | Giá: " + p.getPrice());
+        }
+    }
+}
